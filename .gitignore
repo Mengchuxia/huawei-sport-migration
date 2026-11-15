@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 运行产物（含个人运动数据，不要提交）
+workouts.json
+out/
+probes/
+audit.json
+verify-report.md
+verify-report.json
+*.fit
+/sample.json
+/sample_out/
+
+# 编辑器
+.DS_Store
+.idea/
+.vscode/

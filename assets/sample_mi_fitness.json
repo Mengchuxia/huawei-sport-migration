@@ -1,0 +1,2172 @@
+{
+ "schema_version": "sample",
+ "source": "synthetic",
+ "generated_at": "2024-05-03T00:00:00+08:00",
+ "records": {
+  "workouts": [
+   {
+    "workout_id": "sample-run-001",
+    "activity_type": "outdoor_running",
+    "start_at": "2024-05-01T07:30:00+08:00",
+    "end_at": "2024-05-01T07:40:40+08:00",
+    "valid_duration_seconds": 600,
+    "duration_minutes": 10,
+    "distance_m": 1754.5,
+    "calories_kcal": 95,
+    "avg_heart_rate_bpm": 138,
+    "max_heart_rate_bpm": 156,
+    "min_heart_rate_bpm": 119,
+    "avg_cadence": 170,
+    "max_cadence": 181,
+    "rise_height_m": 6,
+    "fall_height_m": 5,
+    "timezone": "Asia/Shanghai",
+    "tz_in_15min": 32
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "activity_type": "free_training",
+    "start_at": "2024-05-02T19:00:00+08:00",
+    "end_at": "2024-05-02T19:16:00+08:00",
+    "valid_duration_seconds": null,
+    "duration_minutes": 15,
+    "distance_m": null,
+    "calories_kcal": 120,
+    "avg_heart_rate_bpm": 110,
+    "max_heart_rate_bpm": 132,
+    "min_heart_rate_bpm": 92,
+    "avg_cadence": null,
+    "max_cadence": null,
+    "rise_height_m": null,
+    "fall_height_m": null,
+    "timezone": "Asia/Shanghai",
+    "tz_in_15min": 32
+   }
+  ],
+  "workout_detail": [
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 0,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 14.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 5,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 29.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 10,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 43.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 15,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 58.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 20,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 72.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 25,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 87.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 30,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 101.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 35,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 116.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 40,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 130.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 45,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 145.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 50,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 159.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 55,
+    "heart_rate_bpm": 120,
+    "cadence": 168,
+    "distance_m": 174.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 60,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 188.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 65,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 203.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 70,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 217.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 75,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 232.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 80,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 246.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 85,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 261.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 90,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 275.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 95,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 290.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 100,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 304.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 105,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 319.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 110,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 333.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 115,
+    "heart_rate_bpm": 121,
+    "cadence": 168,
+    "distance_m": 348.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 120,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 362.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 125,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 377.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 130,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 391.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 135,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 406.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 140,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 420.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 145,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 435.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 150,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 449.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 155,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 464.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 160,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 478.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 165,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 493.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 170,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 507.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 175,
+    "heart_rate_bpm": 122,
+    "cadence": 168,
+    "distance_m": 522.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 180,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 536.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 185,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 551.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 190,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 565.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 195,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 580.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 200,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 594.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 205,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 609.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 210,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 623.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 215,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 638.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 220,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 652.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 225,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 667.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 230,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 681.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 235,
+    "heart_rate_bpm": 123,
+    "cadence": 168,
+    "distance_m": 696.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 240,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 710.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 245,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 725.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 250,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 739.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 255,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 754.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 260,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 768.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 265,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 783.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 270,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 797.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 275,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 812.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 280,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 826.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 285,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 841.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 290,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 855.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 295,
+    "heart_rate_bpm": 124,
+    "cadence": 168,
+    "distance_m": 870.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 300,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 884.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 305,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 899.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 310,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 913.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 315,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 928.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 320,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 942.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 325,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 957.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 330,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 971.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 335,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 986.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 340,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 1000.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 345,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 1015.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 350,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 1029.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 355,
+    "heart_rate_bpm": 125,
+    "cadence": 168,
+    "distance_m": 1044.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 360,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1058.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 365,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1073.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 370,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1087.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 375,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1102.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 380,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1116.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 385,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1131.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 390,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1145.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 395,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1160.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 400,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1174.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 405,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1189.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 410,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1203.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 415,
+    "heart_rate_bpm": 126,
+    "cadence": 168,
+    "distance_m": 1218.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 420,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1232.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 425,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1247.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 430,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1261.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 435,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1276.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 440,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1290.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 445,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1305.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 450,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1319.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 455,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1334.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 460,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1348.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 465,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1363.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 470,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1377.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 475,
+    "heart_rate_bpm": 127,
+    "cadence": 168,
+    "distance_m": 1392.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 480,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1406.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 485,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1421.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 490,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1435.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 495,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1450.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 500,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1464.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 505,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1479.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 510,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1493.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 515,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1508.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 520,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1522.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 525,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1537.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 530,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1551.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 535,
+    "heart_rate_bpm": 128,
+    "cadence": 168,
+    "distance_m": 1566.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 540,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1580.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 545,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1595.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 550,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1609.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 555,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1624.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 560,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1638.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 565,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1653.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 570,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1667.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 575,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1682.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 580,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1696.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 585,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1711.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 590,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1725.5
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 595,
+    "heart_rate_bpm": 129,
+    "cadence": 168,
+    "distance_m": 1740.0
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 600,
+    "heart_rate_bpm": 130,
+    "cadence": 168,
+    "distance_m": 1754.5
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 0,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 15,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 30,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 45,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 60,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 75,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 90,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 105,
+    "heart_rate_bpm": 105,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 120,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 135,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 150,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 165,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 180,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 195,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 210,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 225,
+    "heart_rate_bpm": 106,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 240,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 255,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 270,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 285,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 300,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 315,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 330,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 345,
+    "heart_rate_bpm": 107,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 360,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 375,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 390,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 405,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 420,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 435,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 450,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 465,
+    "heart_rate_bpm": 108,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 480,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 495,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 510,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 525,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 540,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 555,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 570,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 585,
+    "heart_rate_bpm": 109,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 600,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 615,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 630,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 645,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 660,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 675,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 690,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 705,
+    "heart_rate_bpm": 110,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 720,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 735,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 750,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 765,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 780,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 795,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 810,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 825,
+    "heart_rate_bpm": 111,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 840,
+    "heart_rate_bpm": 112,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 855,
+    "heart_rate_bpm": 112,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 870,
+    "heart_rate_bpm": 112,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 885,
+    "heart_rate_bpm": 112,
+    "cadence": null,
+    "distance_m": null
+   },
+   {
+    "workout_id": "sample-strength-002",
+    "offset_seconds": 900,
+    "heart_rate_bpm": 112,
+    "cadence": null,
+    "distance_m": null
+   }
+  ],
+  "workout_gps": [
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 0,
+    "latitude": 32.0,
+    "longitude": 97.0,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 5,
+    "latitude": 32.0001,
+    "longitude": 97.00015,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 10,
+    "latitude": 32.0002,
+    "longitude": 97.0003,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 15,
+    "latitude": 32.0003,
+    "longitude": 97.00045,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 20,
+    "latitude": 32.0004,
+    "longitude": 97.0006,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 25,
+    "latitude": 32.0005,
+    "longitude": 97.00075,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 30,
+    "latitude": 32.0006,
+    "longitude": 97.0009,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 35,
+    "latitude": 32.0007,
+    "longitude": 97.00105,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 40,
+    "latitude": 32.0008,
+    "longitude": 97.0012,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 45,
+    "latitude": 32.0009,
+    "longitude": 97.00135,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 50,
+    "latitude": 32.001,
+    "longitude": 97.0015,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 55,
+    "latitude": 32.0011,
+    "longitude": 97.00165,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 60,
+    "latitude": 32.0012,
+    "longitude": 97.0018,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 65,
+    "latitude": 32.0013,
+    "longitude": 97.00195,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 70,
+    "latitude": 32.0014,
+    "longitude": 97.0021,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 75,
+    "latitude": 32.0015,
+    "longitude": 97.00225,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 80,
+    "latitude": 32.0016,
+    "longitude": 97.0024,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 85,
+    "latitude": 32.0017,
+    "longitude": 97.00255,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 90,
+    "latitude": 32.0018,
+    "longitude": 97.0027,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 95,
+    "latitude": 32.0019,
+    "longitude": 97.00285,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 100,
+    "latitude": 32.002,
+    "longitude": 97.003,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 105,
+    "latitude": 32.0021,
+    "longitude": 97.00315,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 110,
+    "latitude": 32.0022,
+    "longitude": 97.0033,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 115,
+    "latitude": 32.0023,
+    "longitude": 97.00345,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 120,
+    "latitude": 32.0024,
+    "longitude": 97.0036,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 125,
+    "latitude": 32.0025,
+    "longitude": 97.00375,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 130,
+    "latitude": 32.0026,
+    "longitude": 97.0039,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 135,
+    "latitude": 32.0027,
+    "longitude": 97.00405,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 140,
+    "latitude": 32.0028,
+    "longitude": 97.0042,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 145,
+    "latitude": 32.0029,
+    "longitude": 97.00435,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 150,
+    "latitude": 32.003,
+    "longitude": 97.0045,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 155,
+    "latitude": 32.0031,
+    "longitude": 97.00465,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 160,
+    "latitude": 32.0032,
+    "longitude": 97.0048,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 165,
+    "latitude": 32.0033,
+    "longitude": 97.00495,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 170,
+    "latitude": 32.0034,
+    "longitude": 97.0051,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 175,
+    "latitude": 32.0035,
+    "longitude": 97.00525,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 180,
+    "latitude": 32.0036,
+    "longitude": 97.0054,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 185,
+    "latitude": 32.0037,
+    "longitude": 97.00555,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 190,
+    "latitude": 32.0038,
+    "longitude": 97.0057,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 195,
+    "latitude": 32.0039,
+    "longitude": 97.00585,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 200,
+    "latitude": 32.004,
+    "longitude": 97.006,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 205,
+    "latitude": 32.0041,
+    "longitude": 97.00615,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 210,
+    "latitude": 32.0042,
+    "longitude": 97.0063,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 215,
+    "latitude": 32.0043,
+    "longitude": 97.00645,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 220,
+    "latitude": 32.0044,
+    "longitude": 97.0066,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 225,
+    "latitude": 32.0045,
+    "longitude": 97.00675,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 230,
+    "latitude": 32.0046,
+    "longitude": 97.0069,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 235,
+    "latitude": 32.0047,
+    "longitude": 97.00705,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 240,
+    "latitude": 32.0048,
+    "longitude": 97.0072,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 245,
+    "latitude": 32.0049,
+    "longitude": 97.00735,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 250,
+    "latitude": 32.005,
+    "longitude": 97.0075,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 255,
+    "latitude": 32.0051,
+    "longitude": 97.00765,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 260,
+    "latitude": 32.0052,
+    "longitude": 97.0078,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 265,
+    "latitude": 32.0053,
+    "longitude": 97.00795,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 270,
+    "latitude": 32.0054,
+    "longitude": 97.0081,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 275,
+    "latitude": 32.0055,
+    "longitude": 97.00825,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 280,
+    "latitude": 32.0056,
+    "longitude": 97.0084,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 285,
+    "latitude": 32.0057,
+    "longitude": 97.00855,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 290,
+    "latitude": 32.0058,
+    "longitude": 97.0087,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 295,
+    "latitude": 32.0059,
+    "longitude": 97.00885,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 300,
+    "latitude": 32.006,
+    "longitude": 97.009,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 305,
+    "latitude": 32.0061,
+    "longitude": 97.00915,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 310,
+    "latitude": 32.0062,
+    "longitude": 97.0093,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 315,
+    "latitude": 32.0063,
+    "longitude": 97.00945,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 320,
+    "latitude": 32.0064,
+    "longitude": 97.0096,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 325,
+    "latitude": 32.0065,
+    "longitude": 97.00975,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 330,
+    "latitude": 32.0066,
+    "longitude": 97.0099,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 335,
+    "latitude": 32.0067,
+    "longitude": 97.01005,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 340,
+    "latitude": 32.0068,
+    "longitude": 97.0102,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 345,
+    "latitude": 32.0069,
+    "longitude": 97.01035,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 350,
+    "latitude": 32.007,
+    "longitude": 97.0105,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 355,
+    "latitude": 32.0071,
+    "longitude": 97.01065,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 360,
+    "latitude": 32.0072,
+    "longitude": 97.0108,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 365,
+    "latitude": 32.0073,
+    "longitude": 97.01095,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 370,
+    "latitude": 32.0074,
+    "longitude": 97.0111,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 375,
+    "latitude": 32.0075,
+    "longitude": 97.01125,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 380,
+    "latitude": 32.0076,
+    "longitude": 97.0114,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 385,
+    "latitude": 32.0077,
+    "longitude": 97.01155,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 390,
+    "latitude": 32.0078,
+    "longitude": 97.0117,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 395,
+    "latitude": 32.0079,
+    "longitude": 97.01185,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 400,
+    "latitude": 32.008,
+    "longitude": 97.012,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 405,
+    "latitude": 32.0081,
+    "longitude": 97.01215,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 410,
+    "latitude": 32.0082,
+    "longitude": 97.0123,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 415,
+    "latitude": 32.0083,
+    "longitude": 97.01245,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 420,
+    "latitude": 32.0084,
+    "longitude": 97.0126,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 425,
+    "latitude": 32.0085,
+    "longitude": 97.01275,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 430,
+    "latitude": 32.0086,
+    "longitude": 97.0129,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 435,
+    "latitude": 32.0087,
+    "longitude": 97.01305,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 440,
+    "latitude": 32.0088,
+    "longitude": 97.0132,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 445,
+    "latitude": 32.0089,
+    "longitude": 97.01335,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 450,
+    "latitude": 32.009,
+    "longitude": 97.0135,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 455,
+    "latitude": 32.0091,
+    "longitude": 97.01365,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 460,
+    "latitude": 32.0092,
+    "longitude": 97.0138,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 465,
+    "latitude": 32.0093,
+    "longitude": 97.01395,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 470,
+    "latitude": 32.0094,
+    "longitude": 97.0141,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 475,
+    "latitude": 32.0095,
+    "longitude": 97.01425,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 480,
+    "latitude": 32.0096,
+    "longitude": 97.0144,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 485,
+    "latitude": 32.0097,
+    "longitude": 97.01455,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 490,
+    "latitude": 32.0098,
+    "longitude": 97.0147,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 495,
+    "latitude": 32.0099,
+    "longitude": 97.01485,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 500,
+    "latitude": 32.01,
+    "longitude": 97.015,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 505,
+    "latitude": 32.0101,
+    "longitude": 97.01515,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 510,
+    "latitude": 32.0102,
+    "longitude": 97.0153,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 515,
+    "latitude": 32.0103,
+    "longitude": 97.01545,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 520,
+    "latitude": 32.0104,
+    "longitude": 97.0156,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 525,
+    "latitude": 32.0105,
+    "longitude": 97.01575,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 530,
+    "latitude": 32.0106,
+    "longitude": 97.0159,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 535,
+    "latitude": 32.0107,
+    "longitude": 97.01605,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 540,
+    "latitude": 32.0108,
+    "longitude": 97.0162,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 545,
+    "latitude": 32.0109,
+    "longitude": 97.01635,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 550,
+    "latitude": 32.011,
+    "longitude": 97.0165,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 555,
+    "latitude": 32.0111,
+    "longitude": 97.01665,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 560,
+    "latitude": 32.0112,
+    "longitude": 97.0168,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 565,
+    "latitude": 32.0113,
+    "longitude": 97.01695,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 570,
+    "latitude": 32.0114,
+    "longitude": 97.0171,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 575,
+    "latitude": 32.0115,
+    "longitude": 97.01725,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 580,
+    "latitude": 32.0116,
+    "longitude": 97.0174,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 585,
+    "latitude": 32.0117,
+    "longitude": 97.01755,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 590,
+    "latitude": 32.0118,
+    "longitude": 97.0177,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 595,
+    "latitude": 32.0119,
+    "longitude": 97.01785,
+    "speed_mps": 2.9
+   },
+   {
+    "workout_id": "sample-run-001",
+    "offset_seconds": 600,
+    "latitude": 32.012,
+    "longitude": 97.018,
+    "speed_mps": 2.9
+   }
+  ]
+ }
+}

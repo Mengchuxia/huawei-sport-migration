@@ -1,0 +1,312 @@
+{
+ "schema_version": "1",
+ "capabilities": [
+  "桥导出转换",
+  "数据转换",
+  "FIT编码",
+  "FIT自检",
+  "批量上传",
+  "服务端核验"
+ ],
+ "functional_degradations": [
+  {
+   "capability": "桥导出转换",
+   "trigger": "没有桥导出的 JSON，或不想在本机保存小米凭据",
+   "fallback": "改用 GPX / TCX / FIT，通过 convert.py 转成同一份 workouts.json",
+   "user_input": "平台导出的 GPX / TCX / FIT 文件",
+   "limitations": "只有汇总或只有轨迹时，逐点心率与步频会缺失",
+   "evidence_label": "已验证",
+   "recovery": "拿到导出文件后运行 convert.py",
+   "stop_condition": "既没有桥导出，也没有任何可用的导出文件"
+  },
+  {
+   "capability": "数据转换",
+   "trigger": "本机没有可用的 Python 3.10+ 运行环境",
+   "fallback": "在另一台有 Python 的机器上转换，或直接使用已有的 FIT 文件进入后续步骤",
+   "user_input": "可用的 Python 环境或现成 FIT 文件",
+   "limitations": "无法解析 GPX/TCX/FIT，也无法生成中间清单",
+   "evidence_label": "已验证",
+   "recovery": "安装 Python 3.10+ 后运行 check_environment.py 重检",
+   "stop_condition": "既没有 Python 环境也没有现成 FIT 文件"
+  },
+  {
+   "capability": "FIT编码",
+   "trigger": "未安装 garmin-fit-sdk",
+   "fallback": "改用其他工具生成合规 FIT，再用本包的核验与上传步骤",
+   "user_input": "已有的 FIT 文件",
+   "limitations": "无法从 workouts.json 生成新文件；不保证外部文件符合本包的编码规则",
+   "evidence_label": "已验证",
+   "recovery": "pip install garmin-fit-sdk 后重跑 check_environment.py",
+   "stop_condition": "既不能安装依赖，也没有可用的现成 FIT"
+  },
+  {
+   "capability": "FIT自检",
+   "trigger": "未安装 garmin-fit-sdk，无法解码回读",
+   "fallback": "只做文件大小与命名检查，结构问题留给平台反馈",
+   "user_input": "无",
+   "limitations": "无法确认必需消息、时间轴闭合与分段求和，失败风险升高",
+   "evidence_label": "推断",
+   "recovery": "安装依赖后运行 fit_audit.py",
+   "stop_condition": "需要给出可导入结论但无法完成自检"
+  },
+  {
+   "capability": "批量上传",
+   "trigger": "未安装 Playwright 或找不到可用浏览器",
+   "fallback": "在导入页手动分批上传，每批不超过 50 个文件（建议 10 个）",
+   "user_input": "人工操作浏览器",
+   "limitations": "没有自动跳过已存在记录，需要自己对照核验报告避免重复",
+   "evidence_label": "部分验证",
+   "recovery": "安装 Playwright 与浏览器内核后重跑 check_environment.py",
+   "stop_condition": "无法登录或不具备可操作的浏览器"
+  },
+  {
+   "capability": "服务端核验",
+   "trigger": "未登录、登录失效或页面接口变动",
+   "fallback": "在华为运动健康 App 的运动记录里人工核对开始时间",
+   "user_input": "App 内的实际记录",
+   "limitations": "无法自动判定缺失与重复，只能抽样确认",
+   "evidence_label": "部分验证",
+   "recovery": "重新登录后运行 huawei_verify.py",
+   "stop_condition": "需要精确的缺失或重复结论但没有任何可用数据来源"
+  }
+ ],
+ "dependencies": [
+  {
+   "id": "python",
+   "type": "runtime",
+   "required": true,
+   "auth_type": "none",
+   "capabilities": [
+    "数据转换",
+    "FIT编码",
+    "FIT自检"
+   ],
+   "checks": [
+    {
+     "id": "python-version",
+     "type": "python",
+     "required": true,
+     "min_version": "3.10"
+    }
+   ],
+   "setup": {
+    "official_home_url": "https://www.python.org/",
+    "official_docs_url": "https://docs.python.org/3/",
+    "steps": [
+     "安装 Python 3.10 或更高版本",
+     "确认 python --version 可用"
+    ],
+    "verify": "python scripts/check_environment.py 中 python 一项为通过",
+    "security": "只从官方站点下载安装包，不使用第三方打包版本",
+    "verified_at": "2026-11-15",
+    "applies_to_version": "3.10+"
+   },
+   "degradation": [
+    {
+     "capability": "数据转换",
+     "trigger": "本机没有可用的 Python 3.10+ 运行环境",
+     "fallback": "在另一台有 Python 的机器上转换，或直接使用已有的 FIT 文件",
+     "user_input": "可用的 Python 环境或现成 FIT 文件",
+     "limitations": "无法解析导出文件，也无法生成中间清单",
+     "evidence_label": "已验证",
+     "recovery": "安装 Python 后运行 check_environment.py",
+     "stop_condition": "既没有 Python 环境也没有现成 FIT 文件"
+    },
+    {
+     "capability": "FIT编码",
+     "trigger": "本机没有可用的 Python 3.10+ 运行环境",
+     "fallback": "改用其他工具生成合规 FIT",
+     "user_input": "已有的 FIT 文件",
+     "limitations": "无法从 workouts.json 生成文件",
+     "evidence_label": "已验证",
+     "recovery": "安装 Python 后重跑编码",
+     "stop_condition": "没有任何可用的 FIT 来源"
+    },
+    {
+     "capability": "FIT自检",
+     "trigger": "本机没有可用的 Python 3.10+ 运行环境",
+     "fallback": "只做人工检查",
+     "user_input": "无",
+     "limitations": "无法验证结构合规性",
+     "evidence_label": "推断",
+     "recovery": "安装 Python 后运行 fit_audit.py",
+     "stop_condition": "需要给出可导入结论但无法自检"
+    }
+   ]
+  },
+  {
+   "id": "garmin-fit-sdk",
+   "type": "local-tool",
+   "required": true,
+   "auth_type": "none",
+   "capabilities": [
+    "FIT编码",
+    "FIT自检"
+   ],
+   "checks": [
+    {
+     "id": "fit-sdk-import",
+     "type": "python",
+     "required": true,
+     "name": "garmin_fit_sdk",
+     "min_version": "1.2"
+    }
+   ],
+   "setup": {
+    "official_home_url": "https://pypi.org/project/garmin-fit-sdk/",
+    "official_docs_url": "https://github.com/garmin/fit-python-sdk",
+    "download_url": "https://pypi.org/project/garmin-fit-sdk/",
+    "steps": [
+     "pip install garmin-fit-sdk",
+     "python -c \"import garmin_fit_sdk\" 确认导入成功"
+    ],
+    "verify": "python scripts/check_environment.py 中 garmin-fit-sdk 一项为通过",
+    "security": "从 PyPI 官方源安装，不要使用来源不明的同名包",
+    "verified_at": "2026-11-15",
+    "applies_to_version": "1.2+"
+   },
+   "degradation": [
+    {
+     "capability": "FIT编码",
+     "trigger": "未安装 garmin-fit-sdk",
+     "fallback": "改用其他工具生成合规 FIT，再进入核验与上传步骤",
+     "user_input": "已有的 FIT 文件",
+     "limitations": "无法从中间格式生成新文件",
+     "evidence_label": "已验证",
+     "recovery": "pip install garmin-fit-sdk",
+     "stop_condition": "既不能安装依赖也没有现成 FIT"
+    },
+    {
+     "capability": "FIT自检",
+     "trigger": "未安装 garmin-fit-sdk",
+     "fallback": "只检查文件大小与命名",
+     "user_input": "无",
+     "limitations": "无法确认消息完整性与时间轴闭合",
+     "evidence_label": "推断",
+     "recovery": "安装依赖后运行 fit_audit.py",
+     "stop_condition": "需要可导入结论但无法自检"
+    }
+   ]
+  },
+  {
+   "id": "playwright",
+   "type": "local-tool",
+   "required": false,
+   "auth_type": "none",
+   "capabilities": [
+    "批量上传",
+    "服务端核验"
+   ],
+   "checks": [
+    {
+     "id": "playwright-import",
+     "type": "python",
+     "required": true,
+     "name": "playwright",
+     "min_version": "1.40"
+    }
+   ],
+   "setup": {
+    "official_home_url": "https://playwright.dev/python/",
+    "official_docs_url": "https://playwright.dev/python/docs/intro",
+    "download_url": "https://playwright.dev/python/docs/browsers",
+    "steps": [
+     "pip install playwright",
+     "playwright install chromium（本机已有 Edge 或 Chrome 可跳过）",
+     "python scripts/check_environment.py 确认浏览器可用"
+    ],
+    "verify": "python scripts/check_environment.py 中 playwright 与 browser 两项为通过",
+    "security": "只用于访问华为官方导入页，不访问其他站点",
+    "verified_at": "2026-11-15",
+    "applies_to_version": "1.40+"
+   },
+   "degradation": [
+    {
+     "capability": "批量上传",
+     "trigger": "未安装 Playwright 或找不到可用浏览器",
+     "fallback": "在导入页手动分批上传，每批不超过 50 个（建议 10 个）",
+     "user_input": "人工操作浏览器",
+     "limitations": "不会自动跳过已存在记录，需要自行对照核验报告",
+     "evidence_label": "部分验证",
+     "recovery": "安装 Playwright 与浏览器内核后重跑 check_environment.py",
+     "stop_condition": "无法登录或不具备可操作的浏览器"
+    },
+    {
+     "capability": "服务端核验",
+     "trigger": "未安装 Playwright，无法读取服务端记录",
+     "fallback": "在 App 里按开始时间人工核对",
+     "user_input": "App 内的实际记录",
+     "limitations": "无法自动判定缺失与重复",
+     "evidence_label": "部分验证",
+     "recovery": "安装后运行 huawei_verify.py",
+     "stop_condition": "需要精确结论但没有任何数据来源"
+    }
+   ]
+  },
+  {
+   "id": "huawei-account",
+   "type": "account",
+   "required": true,
+   "auth_type": "browser-login",
+   "capabilities": [
+    "批量上传",
+    "服务端核验"
+   ],
+   "checks": [
+    {
+     "id": "huawei-login",
+     "type": "auth_probe",
+     "required": true,
+     "target": "https://h5hosting.dbankcdn.com/cch5/healthkit/data-import/pages/oauth-callback.html"
+    }
+   ],
+   "setup": {
+    "official_home_url": "https://health.huawei.com/",
+    "official_docs_url": "https://consumer.huawei.com/cn/support/",
+    "login_url": "https://id1.cloud.huawei.com/CAS/portal/loginAuth.html",
+    "console_path": [
+     "华为运动健康导入页",
+     "运动数据导入",
+     "选择 FIT",
+     "选择文件并导入"
+    ],
+    "scopes": [
+     "健康数据写入（页面自身申请）"
+    ],
+    "credential_storage": "不保存密码与验证码；登录态由浏览器保存在 ~/.huawei-sport-migration/browser-profile/",
+    "steps": [
+     "运行 python scripts/huawei_upload.py --login-only",
+     "在弹出的浏览器窗口用手机扫码或短信验证码登录",
+     "看到「登录态已保存」即完成，不需要先生成 FIT"
+    ],
+    "verify": "python scripts/huawei_verify.py 能读出服务端记录条数",
+    "rotate_or_revoke": "删除 ~/.huawei-sport-migration/browser-profile/ 即退出；远端可在华为账号中心移除登录设备",
+    "security": "只在官方页面登录，脚本不接触账号密码与验证码",
+    "verified_at": "2026-11-15",
+    "applies_to_version": "中国大陆账号"
+   },
+   "degradation": [
+    {
+     "capability": "批量上传",
+     "trigger": "未登录、登录过期或账号地区不支持",
+     "fallback": "手动登录后重试；地区不支持时无法导入",
+     "user_input": "中国大陆的华为账号",
+     "limitations": "没有可用账号就无法完成导入",
+     "evidence_label": "已验证",
+     "recovery": "重新扫码登录后重跑",
+     "stop_condition": "账号不可用或地区不支持"
+    },
+    {
+     "capability": "服务端核验",
+     "trigger": "登录失效或接口变动",
+     "fallback": "在 App 里人工核对开始时间",
+     "user_input": "App 内的实际记录",
+     "limitations": "只能抽样确认，无法给出完整缺失清单",
+     "evidence_label": "部分验证",
+     "recovery": "重新登录后运行 huawei_verify.py",
+     "stop_condition": "需要完整清单但接口与 App 都不可用"
+    }
+   ]
+  }
+ ]
+}
