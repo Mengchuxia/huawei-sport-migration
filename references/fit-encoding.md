@@ -47,6 +47,14 @@
 
 坐标换算：`semicircles = degrees × 2^31 / 180`。
 
+**逐点距离必须与总里程同量纲、同基准。** `record.distance` 是累计值，必须单调递增，
+末条要等于 `session.total_distance`。两者差 10 倍时，华为会把逐点配速算成几秒一公里，
+按「异常数据」处理，结果是 App 里只剩平均配速、没有配速曲线。
+`fit_audit.py` 会直接比对末条距离与总距离；不一致就不要上传。
+
+小米桥导出的 `workout_detail.distance_m` 是**每秒增量、单位分米**，不能直接当累计米用；
+`from_bridge.py` 会先累加、再按总里程把量级压回。
+
 ## 5. 步频
 
 - FIT 规范里跑步的 `cadence` 是 rpm，等于「步/分 ÷ 2」

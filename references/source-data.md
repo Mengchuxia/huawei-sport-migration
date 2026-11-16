@@ -90,6 +90,10 @@ python scripts/from_bridge.py --input exports/mi_fitness.json --output workouts.
 | `workout_detail` | `speed_mps` / `altitude_m` | — | **0% / 0%** |
 | `workout_gps` | `latitude` `longitude` `speed_mps` | `samples[].lat/lon/speed` | 轨迹约三分之一场次（仅户外），速度 96% |
 
+有一个坑要单独说：`workout_detail.distance_m` 是**每秒增量、单位分米**，不是累计米。
+`from_bridge.py` 会先累加，再按 `workouts.distance_m` 把量级压回；直接拿它当米用，
+距离会正好大 10 倍，配速随之被算成几十秒一公里，华为会把整段判为异常数据。
+
 三条结论，直接影响能不能用：
 
 - **时长不要只看 `valid_duration_seconds`**，实测只有 2% 的场次有值。脚本按 `valid_duration_seconds` → `duration_minutes × 60` → `end_at - start_at` 依次兜底

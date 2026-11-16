@@ -122,6 +122,24 @@ def audit_file(path: Path, source: dict | None) -> dict:
                 problems.append("存在越界经度")
                 break
 
+    dists = [float(r["distance"]) for r in records if r.get("distance") is not None]
+    if dists:
+        if any(b < a - 0.5 for a, b in zip(dists, dists[1:])):
+            problems.append("record 距离不是递增的")
+        if distance and abs(dists[-1] - distance) > max(2.0, distance * 0.01):
+            problems.append(
+                f"末条 record 距离 {dists[-1]:.1f}m 与总距离 {distance:.1f}m 不一致")
+
+    speeds = [float(r["speed"]) for r in records if r.get("speed") is not None]
+    if speeds and len(speeds) >= 60:
+        sport_value = str(session.get("sport") or "")
+        if sport_value == "running" or "running" in sport_value:
+            if len({round(v, 2) for v in speeds}) <= 2:
+                warnings.append("逐点速度几乎恒定，配速曲线会退化成一条平线（源数据没有逐秒速度）")
+            if max(speeds) > 8.34:
+                warnings.append(
+                    f"存在快于 2 分/公里的配速（{max(speeds):.2f} m/s），华为可能判为异常")
+
     if source:
         src_duration = float(source.get("duration_s") or 0)
         src_elapsed = float(source.get("elapsed_s") or src_duration)

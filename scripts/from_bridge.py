@@ -180,6 +180,18 @@ def linear_distance(points: list[dict], total: float) -> None:
         point["dist"] = round(total * (point["t"] - start) / span, 2)
 
 
+def unit_factor(ratio: float) -> float | None:
+    """识别量级差：返回最接近的 10 的整数次幂换算系数，否则 None。
+
+    小米的逐点距离按分米上报（10 倍），个别设备按厘米（100 倍），
+    这两种情况靠总里程一笔就能判定，不能当成"明细不完整"。
+    """
+    for target in (1.0, 0.1, 0.01, 10.0, 100.0):
+        if abs(ratio / target - 1) <= 0.12:
+            return target
+    return None
+
+
 def resolve_distance(points: list[dict], total: float, derive: bool) -> str:
     """把逐点距离统一成累计值，返回处理方式。"""
     if len(points) < 2:
@@ -236,9 +248,27 @@ def resolve_distance(points: list[dict], total: float, derive: bool) -> str:
 
     if total > 0 and running > 0:
         factor = total / running
-        if 0.8 <= factor <= 1.25 and abs(factor - 1) > 0.01:
+        unit = unit_factor(factor)
+        if unit is not None and abs(unit - 1) > 0.01:
+            # 源数据单位与米不一致（分米 / 厘米）：按总里程整体压回，
+            # 顺带把少量丢点造成的残差一起吃掉，保证末点等于总里程
             for point in points:
                 point["dist"] = round((point.get("dist") or 0) * factor, 2)
+            running = total
+            mode = "scaled"
+        elif unit is not None and abs(factor - 1) > 0.01:
+            for point in points:
+                point["dist"] = round((point.get("dist") or 0) * factor, 2)
+            running = total
+        elif mode == "delta" and (factor > 1.5 or factor < 0.8):
+            # 明细只覆盖一部分（中途丢点），不能按全程等比放大或压缩
+            if gps_distance(points) > 0:
+                rebuild_from_gps(points)
+                return "gps"
+            if derive:
+                linear_distance(points, total)
+                return "derived"
+            return "partial"
     return mode
 
 

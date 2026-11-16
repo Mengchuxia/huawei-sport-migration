@@ -1,7 +1,7 @@
 ---
 name: huawei-sport-migration
 description: "把小米、OPPO、悦跑圈、佳明、Strava 等平台导出的运动记录（GPX/TCX/FIT 或小米桥导出 JSON）转成合规 FIT，批量导入华为运动健康，并以服务端记录核验是否真的入库、有没有重复。用户说「把小米运动记录迁到华为」「这批 FIT 批量导进华为运动健康」「华为导入失败了帮我看看」「怎么确认华为那边到底导进去没有」「华为支持哪些运动类型」时使用。包含取数转换、FIT 编码、导入前自检、幂等上传、服务端核验、失败排查与平台限制探针。"
-version: 1.1.1
+version: 1.1.2
 agent_created: true
 ---
 
@@ -210,6 +210,7 @@ python scripts/huawei_verify.py --fit-dir out --workouts workouts.json
 - [ ] `total_elapsed_time` 是墙钟跨度，`total_timer_time` 是有效运动时长
 - [ ] `local_timestamp` 与结束时间差是 15 分钟的整数倍（合法时区偏移）
 - [ ] 步频按 rpm 写入，且只有存在逐点步频时才写汇总
+- [ ] 末条 `record.distance` 等于 `session.total_distance`（差 10 倍时华为判为异常，配速曲线不显示）
 - [ ] 源数据缺距离/速度时，派生过的场次已在转换输出里标明，或用了 `--no-derive`
 - [ ] 自检 `problems` 为空
 - [ ] 上传前跑过 `--dry-run`，确认待传清单没有已入库的文件
