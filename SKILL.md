@@ -1,7 +1,7 @@
 ---
 name: huawei-sport-migration
 description: "把小米、OPPO、悦跑圈、佳明、Strava 等平台导出的运动记录（GPX/TCX/FIT 或小米桥导出 JSON）转成合规 FIT，批量导入华为运动健康，并以服务端记录核验是否真的入库、有没有重复。用户说「把小米运动记录迁到华为」「这批 FIT 批量导进华为运动健康」「华为导入失败了帮我看看」「怎么确认华为那边到底导进去没有」「华为支持哪些运动类型」时使用。包含取数转换、FIT 编码、导入前自检、幂等上传、服务端核验、失败排查与平台限制探针。"
-version: 1.2.0
+version: 1.3.0
 agent_created: true
 ---
 
@@ -23,19 +23,22 @@ agent_created: true
 - 华为明确拒收的运动类型：只能用「手动添加运动记录」补录
 - 修改或删除华为端已有记录：本包没有这个能力
 
-## 五条硬规则
+## 六条硬规则
 
 1. **只认服务端记录。** 导入页弹窗可能残留上一次的结果，页面里的「历史记录」是当前会话缓存，重新登录就空。判断是否入库，一律读服务端活动记录。
 2. **先查后传，失败不自动重传。** 上传前先查服务端已有哪些记录。最近核验显示同一开始时间与运动类型的再次导入按整条覆盖处理，但该行为并非官方承诺，仍需核验是否产生多条记录。
 3. **不造数据。** 源数据没有的心率、步频、GPS 不写、不插值、不估算。速度与逐点距离在源数据缺失时，只允许按「总里程 + 时间轴」派生，并在转换输出里写明派生了几场；不想派生就加 `--no-derive`。
 4. **不接触账号凭据。** 数据导出由使用者自己在平台完成；本包不代登录、不代填、不保存账号密码与验证码。登录令牌只在已登录页面内临时使用，不落盘、不外传。
 5. **接口变更先询问。** 迁移前主动询问使用者是否进行接口兼容性探测，说明只读检查、合成哨兵探测与跳过三种方式的步骤及影响；未经确认，不执行会写入账号的探测。入口：`scripts/check_api_compat.py`，说明见 `@references/api-compat-probe.md`。
+6. **实时状态优先。** 页面文案、类型矩阵、字段结构与限制以**执行当时的探测结果**为准；`@references/current-status.md` 只是最近一次只读核验的时间基准，仓库里的「最近核验」不能替代它。发现差异时按实时结果调整流程并更新文档。
 
 ## 流程
 
 ### 前置 接口兼容性询问
 
 先运行 `python scripts/check_api_compat.py` 或等价询问：说明导入页与内部接口可能变化，列出三种探测方式（只读检查 / 合成哨兵探测 / 跳过）及各自影响。选择「合成哨兵探测」时须再次确认写入账号的后果，并提醒使用者在 App 内自行删除测试记录。未经确认不得执行写入账号的探测。
+
+再读 `@references/current-status.md`，确认最近一次只读核验的时间、页面文案与服务端字段结构；把实时结果与 `@references/huawei-limits.md`、`@references/field-reference.md` 比对，差异以实时结果为准。完整流程示例见 `@examples/end-to-end.md`，操作要点见 `@references/operational-notes.md`。
 
 ### 第 0 步 环境检查
 
@@ -103,7 +106,7 @@ python scripts/fit_audit.py --fit-dir out --workouts workouts.json --report audi
 
 ```bash
 python scripts/huawei_upload.py --fit-dir out --workouts workouts.json --dry-run
-python scripts/huawei_upload.py --fit-dir out --workouts workouts.json
+python scripts/huawei_upload.py --fit-dir out --workouts workouts.json --batch 50
 ```
 
 `workouts.json` 是必需的：脚本用它确定这批文件对应哪些运动记录，缺了会直接拒绝运行，避免不知情地导入。
@@ -114,7 +117,8 @@ python scripts/huawei_upload.py --fit-dir out --workouts workouts.json
 - 脚本先读服务端已有记录，只传缺的；传完逐批回查，确认记录真的出现
 - 比对键是「开始时间（分钟）+ 时长（秒）」，同一分钟的两场不同运动不会被当成一条
 - 目录里不在 `workouts.json` 的文件（如探针）会回读 FIT 自身取开始时间，不会盲传
-- 默认 10 个一批、批次间隔 2.5 秒，上限 50 个一批
+- 默认 10 个一批、批次间隔 2.5 秒，上限 50 个一批；导入页文件输入支持 `multiple`，文件多时用 `--batch 50` 一次提交整批
+- 批量结果弹窗只给汇总、不指出失败文件：失败批先整批复传一次，仍失败再回退逐文件定位，不要反复自动重试（见 `@references/operational-notes.md`）
 
 ### 第 6 步 核验
 
@@ -141,7 +145,7 @@ python scripts/huawei_verify.py --fit-dir out --workouts workouts.json
 | 自检 | `python scripts/fit_audit.py --fit-dir out --workouts workouts.json` |
 | 准备登录态 | `python scripts/huawei_upload.py --login-only` |
 | 试运行上传 | `python scripts/huawei_upload.py --fit-dir out --workouts workouts.json --dry-run` |
-| 正式上传 | `python scripts/huawei_upload.py --fit-dir out --workouts workouts.json` |
+| 正式上传 | `python scripts/huawei_upload.py --fit-dir out --workouts workouts.json --batch 50` |
 | 核验 | `python scripts/huawei_verify.py --fit-dir out --workouts workouts.json` |
 
 ## 类型决策
@@ -219,6 +223,7 @@ python scripts/huawei_verify.py --fit-dir out --workouts workouts.json
 - [ ] 末条 `record.distance` 等于 `session.total_distance`（差 10 倍时华为判为异常，配速曲线不显示）
 - [ ] 源数据缺距离/速度时，派生过的场次已在转换输出里标明，或用了 `--no-derive`
 - [ ] 自检 `problems` 为空
+- [ ] 已读 `@references/current-status.md`，并用 `check_api_compat.py` 的结果复核当前页面限制与字段结构
 - [ ] 上传前跑过 `--dry-run`，确认待传清单没有已入库的文件
 - [ ] 核验报告 0 缺失、0 重复、0 时长不一致、0 无法确认
 - [ ] 无法导入的记录有单独清单，没有混进成功数
@@ -226,6 +231,9 @@ python scripts/huawei_verify.py --fit-dir out --workouts workouts.json
 
 ## 参考资料
 
+- `@examples/end-to-end.md`：用合成数据走通的端到端全程示例
+- `@references/current-status.md`：最近一次实时只读核验状态（时间基准）
+- `@references/operational-notes.md`：批量、幂等、编码口径、失败处理等操作要点
 - `@references/source-data.md`：各平台取数路径、能拿到的粒度、凭据存放与撤销
 - `@references/input-schema.md`：中间格式字段与样例
 - `@references/fit-encoding.md`：FIT 编码规则与单位

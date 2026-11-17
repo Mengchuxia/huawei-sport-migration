@@ -24,7 +24,7 @@ python scripts/check_api_compat.py
 
 1. 打开导入页，记录页面展示的格式、支持类型、单批文件数、单文件体积、最早可导入日期等文案。
 2. 在已登录页面上下文读取 `activityRecords` 返回的一条记录，记录 `activitySummary` 顶层键、`dataSummary` 的 `dataTypeName` 集合、`sectionSummary` 单段键、`performanceSummary` 与 `paceSummary` 的键名。
-3. 与 `references/huawei-limits.md`、`references/field-reference.md` 的记录比对，输出差异清单。
+3. 与 `references/current-status.md`、`references/huawei-limits.md`、`references/field-reference.md` 的记录比对，输出差异清单。
 4. 不导入任何文件，不产生记录。
 
 ## 方式 2：合成哨兵探测的步骤
@@ -43,7 +43,18 @@ python scripts/check_api_compat.py
 
 **影响**：哨兵导入后是账号内的一条真实运动记录。仓库不提供删除能力（删除接口未开放），需使用者在华为运动健康 App 内自行删除。执行前须再次确认。
 
-## 最近一次核验（2026-11-18，合成数据）
+## 最近一次只读状态核验（2026-11-18 01:02）
+
+| 项目 | 结果 |
+|---|---|
+| 方式 | 登录导入页后只读读取页面文案与 `activityRecords`，未导入文件、未写入账号 |
+| 页面文案 | FIT 6 类 / TCX 2 类 / ≤50 文件 / 单文件 ≤5 MB；文件输入 `multiple`；最早可导入日期变量本次渲染为空 |
+| 服务端结构 | `activitySummary` 顶层键、`dataTypeName` 全集 10 类、按类型的字段覆盖，与同日 00:25 快照**无差异** |
+| 展示边界 | 步行不保留步频/步幅统计；骑行保留速度 avg/max 但无逐点速度通道；分段仅跑步类型出现 |
+
+完整快照、字段清单与复现步骤见 `references/current-status.md`。
+
+## 最近一次写入语义核验（2026-11-18 00:35，合成哨兵）
 
 | 项目 | 观察结果 |
 |---|---|
