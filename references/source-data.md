@@ -1,6 +1,6 @@
 # 从各平台拿到原始数据
 
-工具链的输入是导出文件。多数人卡住的地方不是转换，而是「数据到底从哪导出、导出后是不是够用」。这份文档按平台说明取数路径，并标注每种方式**能拿到什么、拿不到什么**。
+工具链的输入是导出文件。转换前需确认导出文件包含哪些粒度的数据。本文按平台说明取数路径，并标注每种方式**通常能取得什么、哪些字段可能缺失**。
 
 ## 先想清楚一件事：你需要哪种粒度
 
@@ -14,7 +14,7 @@
 
 ## 小米运动健康
 
-小米有三条出口。**先说结论：只走路线 B 一条就能完成整条迁移**——它同时给出每场汇总、逐秒明细和轨迹，`from_bridge.py` 直接把它转成 `workouts.json`。路线 A 的价值是「不想交出凭据」和「桥失效时的兜底与核对」，代价是要手工整理或只用其中的 GPX；路线 C 只适合只要跑步的轻量场景。
+小米数据常见三条出口。路线 B 可同时提供每场汇总、逐点明细与部分轨迹，`from_bridge.py` 可直接转换；路线 A 不依赖会话凭据，适合作为替代与汇总核对，代价是缺少单场逐点明细；路线 C 提供单条导出，覆盖记录取决于客户端可读范围。
 
 ### 路线 A：官方隐私中心导出（不交凭据；桥不可用时的替代与核对手段）
 
@@ -77,47 +77,47 @@ mi-fitness-bridge export --format json
 python scripts/from_bridge.py --input exports/mi_fitness.json --output workouts.json
 ```
 
-字段映射与非空率（对真实导出抽样统计，比例仅作参考）：
+字段映射与可用性（字段覆盖取决于设备、账号地区、固件与上游服务）：
 
-| 数据集 | 关键字段 | 落到 `workouts.json` | 非空率 |
+| 数据集 | 关键字段 | 落到 `workouts.json` | 可用性 |
 |---|---|---|---|
-| `workouts`（每场一行） | `activity_type` `start_at` `end_at` `distance_m` `calories_kcal` `avg/max/min_heart_rate_bpm` `rise/fall_height_m` | `sport` `start_time` `elapsed_s` `distance_m` `calories` `avg/max/min_hr` `ascent/descent_m` | 距离 41%、卡路里/心率 99% |
-| `workouts` | `valid_duration_seconds` | `duration_s` | **2%** |
-| `workouts` | `duration_minutes` | `duration_s` 的兜底 | 100% |
-| `workouts` | `avg_cadence` / `max_cadence` | `avg/max_cadence_spm` | 27% / 40% |
-| `workout_detail`（逐秒） | `offset_seconds` `heart_rate_bpm` | `samples[].t` `hr` | 心率 100% |
-| `workout_detail` | `cadence` / `distance_m` | `samples[].cad` / `dist` | 28% / 29% |
-| `workout_detail` | `speed_mps` / `altitude_m` | — | **0% / 0%** |
-| `workout_gps` | `latitude` `longitude` `speed_mps` | `samples[].lat/lon/speed` | 轨迹约三分之一场次（仅户外），速度 96% |
+| `workouts`（每场一行） | `activity_type` `start_at` `end_at` `distance_m` `calories_kcal` `avg/max/min_heart_rate_bpm` `rise/fall_height_m` | `sport` `start_time` `elapsed_s` `distance_m` `calories` `avg/max/min_hr` `ascent/descent_m` | 常见有值；具体覆盖随来源变化 |
+| `workouts` | `valid_duration_seconds` | `duration_s` | 常为空，需按其它时长字段兜底 |
+| `workouts` | `duration_minutes` | `duration_s` 的兜底 | 通常有值 |
+| `workouts` | `avg_cadence` / `max_cadence` | `avg/max_cadence_spm` | 部分场次有值 |
+| `workout_detail`（逐秒） | `offset_seconds` `heart_rate_bpm` | `samples[].t` `hr` | 逐点心率通常有值 |
+| `workout_detail` | `cadence` / `distance_m` | `samples[].cad` / `dist` | 部分场次有值 |
+| `workout_detail` | `speed_mps` / `altitude_m` | — | 该来源常见为空 |
+| `workout_gps` | `latitude` `longitude` `speed_mps` | `samples[].lat/lon/speed` | 户外场次可能有轨迹；速度取决于客户端导出 |
 
-有一个坑要单独说：`workout_detail.distance_m` 是**每秒增量、单位分米**，不是累计米。
+字段单位需单独注意：`workout_detail.distance_m` 是**每秒增量、单位分米**，不是累计米。
 `from_bridge.py` 会先累加，再按 `workouts.distance_m` 把量级压回；直接拿它当米用，
-距离会正好大 10 倍，配速随之被算成几十秒一公里，华为会把整段判为异常数据。
+若按累计米解释，距离量级会偏大，配速随之异常，服务端可能判定数据无效。
 
-三条结论，直接影响能不能用：
+以下字段特性会影响转换结果：
 
-- **时长不要只看 `valid_duration_seconds`**，实测只有 2% 的场次有值。脚本按 `valid_duration_seconds` → `duration_minutes × 60` → `end_at - start_at` 依次兜底
-- **逐点速度与海拔不在明细里**。速度从 `workout_gps.speed_mps` 取，没有就按距离差回算；海拔两张表都是空的，只能不写
+- **时长不要只看 `valid_duration_seconds`**，该字段可能为空。脚本按 `valid_duration_seconds` → `duration_minutes × 60` → `end_at - start_at` 依次兜底
+- **逐点速度与海拔可能不在明细里**。速度可从 `workout_gps.speed_mps` 取，没有时按距离差回算；海拔缺失则不写
 - **逐点距离只有部分场次有**。有就用，没有就用 GPS 算，再没有才按总里程与时间轴还原（`--no-derive` 可关掉这一步）
 
 `from_bridge.py` 会打印每场距离的来源与派生场次数，转换后对一眼：`delta` 为源数据自带差值、`cumulative` 为源数据累计值、`gps` 为按轨迹回算、`derived` 为按总里程还原、`none` 为整场无距离。
 
 原厂 CSV 在这里的角色是核对：拿 `sport_record` 的汇总值去比桥解析出来的数字，确认没有漏字段或单位错位。两者对不上时以原厂为准——App 显示的是它自己算的值。
 
-本项目的实测主线就是「B 生成全部文件，A 只用来核对汇总口径」，不是两路都必须跑。
+两条路线可独立使用；路线 A 可用于核对汇总口径，不要求同时执行。
 
-**凭据怎么来**：`user_id` 与 `passToken` 来自你已登录的小米账号，属于浏览器会话凭据。本项目**不代取、不代登录、不代存**，也不接受把它们写进命令行或提交到任何地方。取法与安全要求以该项目自己的文档为准。
+**凭据说明**：`user_id` 与 `passToken` 属于小米账号的浏览器会话凭据。本项目**不代取、不代登录、不代存**，也不接受把它们写进命令行或提交到任何地方。取法与安全要求以该项目自己的文档为准。
 
 **安全边界**：
 
-- `passToken` 等价于你账号的读取权限，泄露等于把运动数据交出去
+- `passToken` 等价于账号的读取权限，泄露会导致运动数据外泄
 - 只存本机 keyring，不写进脚本、不进截图、不进 issue
 - 用完后在小米账号的登录设备/安全设置里让该会话失效，token 立即作废
 - 这类凭据通常会在下次登录时轮换；轮换后旧值自动失效
 
 ### 路线 C：Mi-Fitness-Sync（邮箱 + 密码，直出 GPX/TCX/FIT）
 
-适合只要跑步、又不想折腾 token 的情况。
+适用于单条记录导出、且不希望使用会话令牌的场景。
 
 ```bash
 mi-fitness-sync export-activity --format fit --id <活动ID>
@@ -129,10 +129,10 @@ mi-fitness-sync export-activity --format fit --id <活动ID>
 
 ### 三条路线怎么选
 
-| 你的情况 | 选 |
+| 场景 | 可选路线 |
 |---|---|
-| 想一次拿全（汇总 + 逐秒 + 轨迹），不介意在本机存 token | **B，一条就够**；`from_bridge.py` 直接转 |
-| 不想把任何凭据交给工具 | A；代价是没有单场逐秒明细，且需要手工整理成 `workouts.json` |
+| 需要汇总、逐点明细与轨迹 | B；`from_bridge.py` 可直接转换 |
+| 不希望提供会话凭据 | A；缺少单场逐点明细，需按输入格式手工整理 |
 | 桥版本变更、接口失效，需要应急 | A；官方导出结构稳定，够先把记录迁过去 |
 | 只要跑步，想直接拿到成品 GPX/TCX/FIT | C |
 | 想更稳一点 | B 生成文件 + A 核对汇总值，两者按开始时间对齐 |

@@ -1,180 +1,116 @@
 # huawei-sport-migration
 
-把第三方平台的运动记录批量迁入华为运动健康的工具链，同时可作为 WorkBuddy 技能安装。
+把第三方平台导出的运动记录编码为 FIT Activity 文件，导入华为运动健康，并以服务端记录核对结果的本地工具链。仓库同时提供一份 WorkBuddy 技能定义（`SKILL.md`）。
 
-**一句话**：GPX / TCX / FIT → 合规 FIT → 批量导入 → 服务端核验。
+**范围**：仅限运动记录。睡眠、日常步数、静息心率、体重、血氧等数据没有对应的华为导入通道；本仓库不提供华为端记录的修改或删除能力。
 
-## 这是什么
+## 工作流
 
-一套脚本，两种用法：
+```
+导出文件（GPX / TCX / FIT / 小米桥导出 JSON）
+    → workouts.json（统一中间格式）
+    → FIT Activity（按 Garmin FIT 规范编码）
+    → 华为运动健康网页导入页
+    → 服务端记录核验
+```
 
-| 用法 | 入口 | 适合 |
+| 阶段 | 入口 | 说明 |
 |---|---|---|
-| 命令行工具链 | `scripts/` | 想控制每一步，或集成进自己的流程 |
-| WorkBuddy 技能 | `SKILL.md` | 让 Agent 按固定流程执行，你只说「把小米记录迁到华为」 |
+| 取数 | 各平台官方导出 / 社区桥接工具 | 由使用者自行完成，凭据不进入本工具链 |
+| 转换 | `scripts/from_bridge.py`、`scripts/convert.py` | 输出 `workouts.json`，字段见 `references/input-schema.md` |
+| 编码与自检 | `scripts/fit_encode.py`、`scripts/fit_audit.py` | 检查必需消息、时间轴、分段求和、文件体积 |
+| 导入 | `scripts/huawei_upload.py` | 通过官方导入页提交，先读服务端已有记录 |
+| 核验 | `scripts/huawei_verify.py` | 以服务端记录判断缺失与重复 |
 
-范围仅限**运动记录**（跑步、骑行、游泳、力量、球类等）。睡眠、步数、静息心率、体重、血氧华为没有导入通道，任何工具都做不到；修改或删除华为端已有记录也不在能力范围内。
+快速开始、命令参数与降级路径见 `references/setup-guide.md`、`SKILL.md`。
 
-## 它解决什么
+## 数据来源（小米侧）
 
-第三方平台导出的文件直接丢进华为导入页，通常有三种结果：结构不合规直接报错、提示成功但记录不存在、重复上传出现两条记录。
+小米运动健康的数据可来自小米隐私中心导出，或社区开源桥接项目导出的 JSON。本仓库**只包含读取这些导出文件的转换脚本，不包含桥接项目源码**。
 
-工具链对每种情况各有一道处理：编码前按 FIT 规范生成，上传前先查已有记录，导入后读服务端核对。具体规则写在 `references/`。
-
-## 先拿到原始数据
-
-工具链的输入是导出文件，这一步得先解决。各平台的路径不同，能拿到的粒度也不同：
-
-| 平台 | 怎么取 | 需要凭据 | 能拿到 |
-|---|---|---|---|
-| 小米运动健康 | **`mi_fitness_data_bridge`（推荐，一条就够）** | `user_id` + `passToken` | 每场汇总 + 逐秒心率（步频、速度部分有，海拔没有）+ 户外场次的 GPS |
-| 小米运动健康 | 隐私中心导出（`account.xiaomi.com` → 隐私中心 → 管理您的数据） | 只需网页登录 | 每场汇总 + 部分记录的 GPS（GPX 为带签名的下载链接，有时效）；无单场逐秒明细 |
-| OPPO / 欢太健康 | App → 单条记录 → 「⋯」→ 导出运动数据 | 无 | FIT（优先）或 TCX，只能一条条导 |
-| 悦跑圈 | App 导出，或 `running_page` 的 `joyrun_sync.py` | 手机号 + 验证码（本地运行） | GPX / TCX，约 5 秒采样 |
-| 佳明 | connect.garmin.com → 活动 → 导出原始文件 | 网页登录 | FIT（带 lap，需经本工具重写） |
-| Strava | 单条导出，或账号整体下载 | 网页登录 | GPX / TCX / `.fit.gz` |
-
-小米**只走桥这一条就能完成迁移**：`from_bridge.py` 直接读桥导出的 JSON，汇总、逐秒心率、轨迹都够用。但不是每个字段都满——逐点距离只有不到一半场次有，GPS 约三分之一（仅户外），海拔基本为空，速度要靠 GPS 或按距离回算；脚本会打印每场距离的来源，不想派生就加 `--no-derive`。
-
-官方导出属于替代方案：不想交出凭据、或桥失效时用它，代价是没有单场逐秒数据。**本包不解析官方导出的 CSV**：迁记录可以用包里的 GPX 走 `convert.py`，或按 `references/input-schema.md` 手工整理；CSV 更适合拿来核对桥算出的汇总值。
-
-**源数据没有的指标，任何转换工具都补不出来。** 左右脚平衡、触地时间、垂直振幅属于跑步动态传感器数据，手机 App 的记录里通常不存在。
-
-小米官方导出包里有四个文件各不相同，容易看错：`sport_record.csv` 是每场一行的主表；`sport_track_data.csv` 的 `GPX` 列是**带签名的下载链接**、有时效，要尽快下载；`fitness_data.csv` 是**全天**传感器流，不能用来还原某一场的逐秒心率；`aggregated_fitness_data.csv` 是按天聚合，迁移用不上。
-
-逐平台路径、字段含义、凭据存放与撤销方式见 **[references/source-data.md](references/source-data.md)**。
-
-拿到数据后先数一遍条数、抽查一场的开始时间与距离，再往下走。
-
-## 快速开始
-
-```bash
-# 0. 环境自检（Python / FIT SDK / Playwright / 浏览器）
-python scripts/check_environment.py
-
-# 1. 转换成中间格式，二选一
-python scripts/from_bridge.py --input exports/mi_fitness.json --output workouts.json   # 小米桥导出
-python scripts/convert.py --input <导出目录> --output workouts.json                   # GPX / TCX / FIT
-
-# 2. 编码 + 自检
-python scripts/fit_encode.py --input workouts.json --out-dir out
-python scripts/fit_audit.py --fit-dir out --workouts workouts.json
-
-# 3. 导入 + 核验
-python scripts/huawei_upload.py --fit-dir out --workouts workouts.json
-python scripts/huawei_verify.py --fit-dir out --workouts workouts.json
-```
-
-第 3 步会打开浏览器并停在华为登录页，扫码一次即可；登录态保存在本地 profile 目录，之后复用。只想先把登录办好：`python scripts/huawei_upload.py --login-only`。
-
-没有现成导出文件时，可以先用 `assets/sample_mi_fitness.json`（合成数据）跑通第 1—2 步：
-
-```bash
-python scripts/from_bridge.py --input assets/sample_mi_fitness.json --output sample.json
-python scripts/fit_encode.py --input sample.json --out-dir sample_out
-python scripts/fit_audit.py --fit-dir sample_out --workouts sample.json
-```
-
-只想先看要传哪些、不实际提交：
-
-```bash
-python scripts/huawei_upload.py --fit-dir out --workouts workouts.json --dry-run
-```
-
-## 数据流
-
-```
-小米 / OPPO / 悦跑圈 / 佳明 / Strava
-      │  官方导出 · 隐私中心 · 桥接工具        （references/source-data.md）
-      ▼
-桥导出 JSON                GPX / TCX / FIT
-      │ from_bridge.py            │ convert.py
-      └────────────┬──────────────┘
-                   ▼
-              workouts.json
-                   │ fit_encode.py
-                   ▼
-                 *.fit ──fit_audit.py──▶ 结构与源数据一致性
-                   │
-                   ├── huawei_upload.py ──▶ 华为运动健康（先查后传）
-                   └── huawei_verify.py ──▶ 缺失 / 重复 / 时长偏差清单
-```
-
-## 命令一览
-
-| 脚本 | 作用 | 参数 |
+| 来源 | 许可 | 说明 |
 |---|---|---|
-| `check_environment.py` | 检查运行环境 | `--json` |
-| `from_bridge.py` | 小米桥导出 JSON → `workouts.json` | `--input` `--output` `--sport` `--no-derive` |
-| `convert.py` | GPX / TCX / FIT → `workouts.json` | `--input` `--output` `--sport` |
-| `fit_encode.py` | `workouts.json` → FIT | `--input` `--out-dir` `--lap-mode` `--cadence` |
-| `fit_audit.py` | 解码回读并与源数据逐项比对 | `--fit-dir` `--workouts` `--report` |
-| `huawei_upload.py` | 幂等批量导入 | `--fit-dir` `--workouts` `--dry-run` `--batch` `--delay` `--state` `--since` `--login-only` |
-| `huawei_verify.py` | 服务端核验 | `--fit-dir` `--workouts` `--report` `--json` `--since` |
-| `make_probe.py` | 生成只差运动类型的探针文件 | `--input` `--out-dir` `--sports` `--index` `--date` |
+| [shkyyy18/mi_fitness_data_bridge](https://github.com/shkyyy18/mi_fitness_data_bridge) | AGPL-3.0 | 导出每场汇总、逐点明细与部分轨迹；非官方项目，依赖非公开上游接口 |
+| [kevinkwee/Mi-Fitness-Sync](https://github.com/kevinkwee/Mi-Fitness-Sync) | MIT | FDS 二进制明细与 TCX/FIT 渲染的参考实现 |
+| [heshi2019/Mi-Fitness_DataAnalyze](https://github.com/heshi2019/Mi-Fitness_DataAnalyze) | — | 小米导出字段的中文注释参考 |
+| [yihong0618/running_page](https://github.com/yihong0618/running_page) | — | 悦跑圈 GPX/TCX 导出路径参考 |
 
-中间格式的字段定义见 `references/input-schema.md`。
+桥接导出常见字段包括每场的开始/结束时间、时长、距离、卡路里、心率统计、步数、逐点心率/步频/速度/累计距离，以及部分户外场次的 GPS。字段覆盖取决于设备、账户地区、固件版本与上游服务；海拔、功率、跑步动态等通道可能缺失。**源数据没有的指标，转换过程不补写、不插值。** 逐文件说明见 `references/source-data.md`。
 
-## 作为技能安装
+上述项目与本仓库无隶属关系，其可用性、字段结构与许可由各自项目决定；本仓库不对其行为作保证。
 
-```bash
-# 方式一：目录方式
-~/.workbuddy/skills/huawei-sport-migration/
+## 华为接受哪些数据
 
-# 方式二：安装打包好的 zip（Release 里下载，或本地打）
-huawei-sport-migration-<version>.zip
-```
+以下为导入页当前展示的信息与近期核验结果，均可能随平台版本变化；以官方页面当时的显示为准。
 
-装好后对 Agent 说「把小米运动健康的记录迁到华为」，它会按 `SKILL.md` 里的七步流程执行。
+| 项目 | 当前观察 |
+|---|---|
+| 文件格式 | FIT 或 TCX（页面单选） |
+| 页面列出的 FIT 支持类型 | 跑步、骑行、游泳、步行、铁三、力量训练 |
+| TCX 支持类型 | 跑步、骑行 |
+| 单批文件数 | ≤ 50 |
+| 单文件体积 | ≤ 5 MB |
+| 导入后修改运动类型 | 页面不提供该能力 |
+| 重复导入 | 最近一次核验（2026-11-18）：同一开始时间与运动类型的再次导入按整条覆盖处理，未观察到新增记录 |
+| 统计与分段 | 服务端按采样点计算部分统计值；分段结构由服务端保存 |
+
+逐类型的可导入矩阵、错误码与复测方式见 `references/huawei-limits.md`；服务端返回的字段结构见 `references/field-reference.md`。
+
+### 字段含义与外部参考
+
+FIT 文件本身的消息与字段定义属于 Garmin FIT 规范；华为服务端运动记录的字段属于 Health Kit 数据类型体系。两者不是同一套字段，参考链接如下：
+
+| 主题 | 链接 |
+|---|---|
+| FIT Activity 文件的必需消息（file_id / session / lap / record）与结构 | [Garmin: Activity File](https://developer.garmin.com/fit/file-types/activity/) |
+| FIT 字段定义总表（Profile） | [Garmin FIT SDK 文档](https://developer.garmin.com/fit/) |
+| 华为「锻炼记录数据」数据类型 | [developer.huawei.com: 锻炼记录数据](https://developer.huawei.com/consumer/cn/doc/HMSCore-Guides/activity-record-data-0000001131649642) |
+| 华为 REST 数据类型总览 | [developer.huawei.com: 数据类型](https://developer.huawei.com/consumer/cn/doc/HMSCore-Guides/restful-data-type-0000001131423768) |
+| 华为原子采样数据 | [developer.huawei.com: 原子采样数据](https://developer.huawei.com/consumer/cn/doc/HMSCore-Guides/atomic-sampling-data-types-0000001324971013) |
+| 华为运动记录对象 | [developer.huawei.com: ActivityRecord](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/activityrecord-0000001050091641) |
+| 华为运动记录接口 | [developer.huawei.com: ActivityRecordsController](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/activityrecordscontroller-0000001050091295) |
+
+项目内整理的字段对照见 `references/field-reference.md`。官方文档为 SPA 页面，部分内容需在浏览器中展开目录查看；链接路径可能调整。
+
+## 接口变化与兼容性探测
+
+导入页及其使用的服务端接口不是公开承诺稳定的 API。为降低文档结论过期的风险，本仓库提供 `scripts/check_api_compat.py`：在执行迁移前**主动询问使用者是否进行接口兼容性探测，并说明各方式的步骤与影响**；未经使用者确认，不执行会向账号写入记录的探测。
+
+三种方式与具体判据见 `references/api-compat-probe.md`。探测结果只能说明单次、单账号、单时间点的观察，不构成对接口稳定性的保证。
+
+## 局限
+
+- 工具链依赖华为网页导入页与其内部接口；该接口不是公开 API，路径、字段、限制与错误码可能变化。
+- 不保证任何文件一定被接受或落库。导入页提示成功不等于服务端存在记录，需独立核验。
+- 服务端对部分统计值按采样点重新计算；写入的汇总字段不一定被采用。
+- 部分运动类型在 FIT 解析层被拒收；此类记录需由使用者在 App 内手动补录。
+- 探针文件导入后即成为账号内的真实记录，仓库不提供删除能力，需使用者自行处理。
+- 仅处理使用者自有账号、自有数据的本地转换，不提供凭据托管、代登录、批量注册或风控绕过。
+- 输出用于数据迁移，不作为医疗、训练或体能评估依据。
+
+更多边界见 `references/security-privacy.md` 与 `references/troubleshooting.md`。
+
+## 隐私
+
+仓库内 `assets/` 的示例数据为合成数据，不含真实健康记录、账号标识或凭据。运行过程中产生的导出文件、FIT、登录态与核验报告均保存在本地，不应提交到公开仓库；提交 issue 或日志前需自行检查轨迹、心率、账号与令牌。详见 `references/security-privacy.md`。
+
+## 免责声明
+
+本项目为非官方的第三方工具，与华为、小米、Garmin 无隶属、背书或支持关系。使用风险由使用者自行承担；详见 **[DISCLAIMER.md](DISCLAIMER.md)**。
+
+## 致谢与许可
+
+第三方项目、许可与出处见 [THANKS.md](THANKS.md)。本仓库代码以 MIT 许可发布，依赖与数据来源的许可各自独立。
 
 ## 目录
 
 ```
-SKILL.md                 技能定义：适用边界、硬规则、流程与验收标准
-README.md                本文件
-THANKS.md                第三方项目、许可与出处
-LICENSE                  MIT
-scripts/                 八个可执行脚本
-references/              取数路径、输入格式、FIT 编码规则、平台限制、核验方法、排查表、安全说明
-assets/                  合成示例数据（workouts / GPX / 桥导出各一份，不含真实个人信息）
-skill-dependencies.json  依赖与降级路径
+SKILL.md                      技能定义：边界、硬规则、流程与验收
+README.md                     本文件
+DISCLAIMER.md                 免责声明
+THANKS.md                     第三方项目与许可
+scripts/                      转换、编码、自检、导入、核验与兼容性询问脚本
+references/                   取数、输入格式、字段含义、平台限制、核验、排查、隐私
+assets/                       合成示例数据
+skill-dependencies.json       依赖与降级路径
 ```
-
-## 平台兼容性（实测于 2026-11）
-
-| 项目 | 结论 |
-|---|---|
-| 华为导入页 | 单批 ≤ 50 个文件，单文件 ≤ 5 MB，导入后不能改运动类型，不做去重 |
-| FIT 可导入 | 跑步、步行、骑行、力量训练、羽毛球 |
-| FIT 实测拒收 | 游泳、乒乓球、电竞、划船机、攀岩 |
-| TCX | 仅跑步与骑行 |
-
-平台会变。拿不准时用 `make_probe.py` 造一组只差运动类型的最小文件自己复测一次，比相信任何文档都可靠。探针会作为真实记录入库，测完在 App 里删掉。
-
-生成的 FIT 里写的是 Garmin 设备标识（一组实测可被华为接受的组合），不是真实设备；华为侧可能把它显示成对应设备。记录本身的时间、距离、心率都来自你的源数据。
-
-## 依赖
-
-- Python 3.10+
-- `garmin-fit-sdk`：FIT 编解码，必需
-- `playwright`：可选，用于自动导入与核验；没有就手动上传
-
-```bash
-pip install garmin-fit-sdk playwright
-playwright install chromium
-```
-
-## 隐私与安全
-
-- 不读取、不保存账号密码与验证码，登录在真实浏览器里由你完成
-- 运动数据只在你本机与你的华为账号之间流动，没有中间服务器
-- 登录态存放于 `~/.huawei-sport-migration/browser-profile/`，删除即退出
-- 不删除、不修改华为端已有记录；未核验不重复上传
-
-## 致谢
-
-FIT 编解码用的是 Garmin 官方 SDK；小米与悦跑圈的数据导出站在社区项目 `mi_fitness_data_bridge`、`Mi-Fitness-Sync`、`running_page` 之上。逐项说明与许可见 **[THANKS.md](THANKS.md)**。
-
-## 许可
-
-本仓库代码以 MIT 发布；依赖与数据来源的许可各不相同，见 [THANKS.md](THANKS.md)。

@@ -18,3 +18,21 @@ verify-report.json
 .DS_Store
 .idea/
 .vscode/
+
+# 本地数据、登录态与临时产物（含个人健康数据，不提交）
+exports/
+tmp_*/
+*.log
+creds.*
+.edge_profile/
+.browser_cmd/
+.trash_*/
+_gh_work/
+审核报告/
+小米原厂数据/
+mi_raw_*/
+out_v*/
+重传_*/
+全量重传_*/
+验证材料/
+.api_compat_choice.json
